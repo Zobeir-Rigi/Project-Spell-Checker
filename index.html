@@ -1,8 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script type="module" src="script.mjs"></script>
-  </head>
-  <body>
-  </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Spell Checker</title>
+  <script type="module" src="script.mjs"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <main>
+    <section>
+      <form>
+        <label for="text">Enter text to check spelling</label>
+
+        <textarea id="text" placeholder="Please write something."></textarea>
+
+        <button type="button" id="check">
+          Check the spelling
+        </button>
+      </form>
+
+      <div id="result" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+
 </html>
