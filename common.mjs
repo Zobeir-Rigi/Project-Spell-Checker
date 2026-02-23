@@ -18,7 +18,6 @@ export function splitTextToWords(text) {
             }
         }
     }
-
     return words;
 }
 
@@ -39,9 +38,28 @@ export const checkSpelling = (wordsArray, dictionary) => {
     return mistakes
 }
 
-const text = "he go to school Ali red-orange fire feisty-cat";
-const wordsArray = splitTextToWords(text);
-console.log("wordsArray", wordsArray)
-const mistakes = checkSpelling(wordsArray, dictionary);
+// const text = "he go to school Ali red-orange fire feisty-cat";
+// const wordsArray = splitTextToWords(text);
+// console.log("wordsArray", wordsArray)
+// const mistakes = checkSpelling(wordsArray, dictionary);
 
-console.log("mistakes", mistakes);
+// console.log("mistakes", mistakes);
+
+export const newDictionary = new Set()
+export const addWordToNewDictionary = (word) => {
+    if (!word) return
+    newDictionary.add(word.toLowerCase())
+}
+
+export const getSpellCheckDictionary = () => {
+    return new Set([...dictionary, ...newDictionary])
+}
+
+const text = "feisty cat";
+const wordsArray = splitTextToWords(text);
+
+console.log("Before adding:", checkSpelling(wordsArray, getSpellCheckDictionary()));
+
+addWordToNewDictionary("feisty");
+
+console.log("After adding:", checkSpelling(wordsArray, getSpellCheckDictionary()));
