@@ -1,11 +1,64 @@
-// This is a placeholder file which shows how you can access JSON data defined in other files.
-// It can be loaded into index.html.
-// You can delete the contents of the file once you have understood how it works.
-// Note that when running locally, in order to open a web page which uses modules, you must serve the directory over HTTP e.g. with https://www.npmjs.com/package/http-server
-// You can't open the index.html file using a file:// URL.
 
-// import {getDictionarySize} from "./common.mjs";
+import {
+    splitTextToWords,
+    checkSpelling,
+    addWordToNewDictionary,
+    getSpellCheckDictionary
+} from "./common.mjs";
 
-// window.onload = function() {
-//     document.querySelector("body").innerText = `There are ${getDictionarySize()} words in the Basic English dictionary`;
-// }
+const inputText = document.getElementById("text");
+const checkButton = document.getElementById("check");
+const resultDiv = document.getElementById("result");
+
+function showMistakes(mistakes) {
+    resultDiv.innerHTML = "";
+
+    if (mistakes.length === 0) {
+        resultDiv.textContent = "No mistakes found!";
+        return;
+    }
+
+    mistakes.forEach(mistake => {
+        const line = document.createElement("div");
+
+        const wordSpan = document.createElement("span");
+        wordSpan.textContent = mistake;
+        wordSpan.style.color = "red";
+        line.appendChild(wordSpan);
+
+        const addButton = document.createElement("button");
+        addButton.textContent = "Add";
+        addButton.style.marginLeft = "10px";
+
+        addButton.addEventListener("click", () => {
+            addWordToNewDictionary(mistake);
+
+            const text = inputText.value;
+            const wordsArray = splitTextToWords(text);
+            const newMistakes = checkSpelling(
+                wordsArray,
+                getSpellCheckDictionary()
+            );
+
+            showMistakes(newMistakes);
+        });
+
+        line.appendChild(addButton);
+        resultDiv.appendChild(line);
+    });
+}
+
+checkButton.addEventListener("click", () => {
+    const text = inputText.value;
+    const wordsArray = splitTextToWords(text);
+    const mistakes = checkSpelling(
+        wordsArray,
+        getSpellCheckDictionary()
+    );
+
+    showMistakes(mistakes);
+});
+
+inputText.addEventListener("input", () => {
+    resultDiv.innerHTML = "";
+});
