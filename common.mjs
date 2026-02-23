@@ -4,21 +4,44 @@ export const dictionary = new Set(words)
 export const getDictionarySize = () => dictionary.size;
 
 export function splitTextToWords(text) {
-  const words = [];
-  const rawWords = text.split(/\s+/);
+    const words = [];
+    const rawWords = text.split(/\s+/);
 
-  for (const rawWord of rawWords) {
-    const hyphenParts = rawWord.split("-");
+    for (const rawWord of rawWords) {
+        const hyphenParts = rawWord.split("-");
 
-    for (const part of hyphenParts) {
-      const cleanWord = part.replace(/^[^\w]+|[^\w]+$/g, "");
+        for (const part of hyphenParts) {
+            const cleanWord = part.replace(/^[^\w]+|[^\w]+$/g, "");
 
-      if (cleanWord) {
-        words.push(cleanWord);
-      }
+            if (cleanWord) {
+                words.push(cleanWord);
+            }
+        }
     }
-  }
 
-  return words;
+    return words;
 }
-console.log(splitTextToWords("red- orange fir.  e,./, blue??-green!"))
+
+export const checkSpelling = (wordsArray, dictionary) => {
+    const mistakes = []
+
+    for (const word of wordsArray) {
+        if (word[0] === word[0].toUpperCase())
+            continue;
+
+        const lowerCaseWord = word.toLowerCase()
+
+        if (!dictionary.has(lowerCaseWord)) {
+            mistakes.push(word)
+        }
+
+    }
+    return mistakes
+}
+
+const text = "he go to school Ali red-orange fire feisty-cat";
+const wordsArray = splitTextToWords(text);
+console.log("wordsArray", wordsArray)
+const mistakes = checkSpelling(wordsArray, dictionary);
+
+console.log("mistakes", mistakes);
