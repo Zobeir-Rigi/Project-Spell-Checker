@@ -21,19 +21,23 @@ export function splitTextToWords(text) {
     return words;
 }
 
+export const isProperNoun = (word) => {
+  return /^[A-Z][a-z]+$/.test(word);
+}
+
 export const checkSpelling = (wordsArray, dictionary) => {
     const mistakes = []
 
     for (const word of wordsArray) {
-        if (word[0] === word[0].toUpperCase())
+        if (isProperNoun(word)) {
             continue;
-
-        const lowerCaseWord = word.toLowerCase()
-
-        if (!dictionary.has(lowerCaseWord)) {
-            mistakes.push(word)
         }
 
+        const lowerCaseWord = word.toLowerCase();
+
+        if (!dictionary.has(lowerCaseWord)) {
+            mistakes.push(word);
+        }
     }
     return mistakes
 }
@@ -68,12 +72,12 @@ export const clearMistakes = () => {
 const text = "he go to school dfd feisty-cat";
 let wordsArray = splitTextToWords(text);
 
-console.log("Before adding:", runSpellCheck(wordsArray)); 
+console.log("Before adding:", runSpellCheck(wordsArray));
 
 addWordToNewDictionary("feisty");
-console.log("After adding:", runSpellCheck(wordsArray)); 
+console.log("After adding:", runSpellCheck(wordsArray));
 
 clearMistakes();
-console.log("After clearing:", currentMistakes); 
+console.log("After clearing:", currentMistakes);
 
 
