@@ -55,11 +55,25 @@ export const getSpellCheckDictionary = () => {
     return new Set([...dictionary, ...newDictionary])
 }
 
-const text = "feisty cat";
-const wordsArray = splitTextToWords(text);
+let currentMistakes = []
+const runSpellCheck = (wordArray) => {
+    const dictionaryToUse = getSpellCheckDictionary()
+    currentMistakes = checkSpelling(wordsArray, dictionaryToUse)
+    return currentMistakes
+}
+export const clearMistakes = () => {
+    currentMistakes = []
+}
 
-console.log("Before adding:", checkSpelling(wordsArray, getSpellCheckDictionary()));
+const text = "he go to school dfd feisty-cat";
+let wordsArray = splitTextToWords(text);
+
+console.log("Before adding:", runSpellCheck(wordsArray)); 
 
 addWordToNewDictionary("feisty");
+console.log("After adding:", runSpellCheck(wordsArray)); 
 
-console.log("After adding:", checkSpelling(wordsArray, getSpellCheckDictionary()));
+clearMistakes();
+console.log("After clearing:", currentMistakes); 
+
+
