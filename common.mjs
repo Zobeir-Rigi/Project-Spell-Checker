@@ -38,13 +38,6 @@ export const checkSpelling = (wordsArray, dictionary) => {
     return mistakes
 }
 
-// const text = "he go to school Ali red-orange fire feisty-cat";
-// const wordsArray = splitTextToWords(text);
-// console.log("wordsArray", wordsArray)
-// const mistakes = checkSpelling(wordsArray, dictionary);
-
-// console.log("mistakes", mistakes);
-
 export const newDictionary = new Set()
 export const addWordToNewDictionary = (word) => {
     if (!word) return
@@ -54,26 +47,3 @@ export const addWordToNewDictionary = (word) => {
 export const getSpellCheckDictionary = () => {
     return new Set([...dictionary, ...newDictionary])
 }
-
-let currentMistakes = []
-const runSpellCheck = (wordArray) => {
-    const dictionaryToUse = getSpellCheckDictionary()
-    currentMistakes = checkSpelling(wordArray, dictionaryToUse)
-    return currentMistakes
-}
-export const clearMistakes = () => {
-    currentMistakes = []
-}
-
-const text = "he go to school dfd feisty-cat";
-let wordsArray = splitTextToWords(text);
-
-console.log("Before adding:", runSpellCheck(wordsArray));
-
-addWordToNewDictionary("feisty");
-console.log("After adding:", runSpellCheck(wordsArray));
-
-clearMistakes();
-console.log("After clearing:", currentMistakes);
-
-
