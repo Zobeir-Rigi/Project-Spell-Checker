@@ -10,7 +10,6 @@ import {
     splitTextToWords,
     checkSpelling,
     getSpellCheckDictionary,
-    clearMistakes,
     addWordToNewDictionary,
     newDictionary
 } from "./common.mjs";
