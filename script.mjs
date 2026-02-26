@@ -23,12 +23,12 @@ function showMistakes(mistakes) {
 
         const wordSpan = document.createElement("span");
         wordSpan.textContent = mistake;
-        wordSpan.style.color = "red";
+        wordSpan.classList.add("mistake-word")
         line.appendChild(wordSpan);
 
         const addButton = document.createElement("button");
         addButton.textContent = "Add";
-        addButton.style.marginLeft = "10px";
+        addButton.classList.add("add-word-btn"); 
 
         addButton.addEventListener("click", () => {
             addWordToNewDictionary(mistake);

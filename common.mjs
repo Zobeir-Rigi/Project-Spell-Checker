@@ -21,15 +21,11 @@ export function splitTextToWords(text) {
     return words;
 }
 
-export const isProperNoun = (word) => {
-  return /^[A-Z][a-z]+$/.test(word);
-}
-
 export const checkSpelling = (wordsArray, dictionary) => {
     const mistakes = []
 
     for (const word of wordsArray) {
-        if (isProperNoun(word)) {
+        if (word && word[0] === word[0].toUpperCase()){
             continue;
         }
 
@@ -62,7 +58,7 @@ export const getSpellCheckDictionary = () => {
 let currentMistakes = []
 const runSpellCheck = (wordArray) => {
     const dictionaryToUse = getSpellCheckDictionary()
-    currentMistakes = checkSpelling(wordsArray, dictionaryToUse)
+    currentMistakes = checkSpelling(wordArray, dictionaryToUse)
     return currentMistakes
 }
 export const clearMistakes = () => {
