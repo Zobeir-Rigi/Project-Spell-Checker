@@ -15,7 +15,6 @@ import {
     newDictionary
 } from "./common.mjs";
 
-// ========== RUBRIC TEST 1: Word Splitting ==========
 test("splitTextToWords: Basic sentence", () => {
   const input = "he go to school";
   const expected = ["he", "go", "to", "school"];
@@ -52,7 +51,6 @@ test("splitTextToWords: Multiple spaces handled correctly", () => {
   assert.deepStrictEqual(splitTextToWords(input), expected);
 });
 
-// ========== RUBRIC TEST 2: Basic Spell Checking ==========
 test("checkSpelling: All correct words return no mistakes", () => {
   const wordsArray = ["he", "go", "to", "school"];
   const dict = getSpellCheckDictionary();
@@ -74,7 +72,6 @@ test("checkSpelling: Multiple unknown words all flagged", () => {
   assert.deepStrictEqual(mistakes, ["xyz", "abc"]);
 });
 
-// ========== RUBRIC TEST 3: Proper Nouns (Capitalized Words) ==========
 test("checkSpelling: Capitalized words are treated as correct regardless of dictionary", () => {
   const wordsArray = ["Ali", "dfd"];
   const dict = getSpellCheckDictionary();
@@ -89,13 +86,11 @@ test("checkSpelling: Multiple proper nouns and mistakes mixed", () => {
   assert.deepStrictEqual(mistakes, ["badword", "xyz"]);
 });
 
-// ========== RUBRIC TEST 4: Correct Words with Punctuation ==========
 test("checkSpelling: Correct words with punctuation are not mistakes (punctuation removed during splitting)", () => {
   const text = "make a cake, please";
   const wordsArray = splitTextToWords(text);
   const dict = getSpellCheckDictionary();
   const mistakes = checkSpelling(wordsArray, dict);
-  // All words are correct in Basic English
   assert.deepStrictEqual(mistakes, []);
 });
 
@@ -108,7 +103,6 @@ test("checkSpelling: Correct words with various punctuation marks", () => {
   assert.deepStrictEqual(mistakes, []);
 });
 
-// ========== RUBRIC TEST 5: Incorrect Words with Punctuation ==========
 test("checkSpelling: Incorrect words with punctuation are still flagged as mistakes", () => {
   const text = "he go to xyz, and badword!";
   const wordsArray = splitTextToWords(text);
@@ -117,7 +111,6 @@ test("checkSpelling: Incorrect words with punctuation are still flagged as mista
   assert.deepStrictEqual(mistakes, ["xyz", "badword"]);
 });
 
-// ========== RUBRIC TEST 6: Hyphenated Words with Correct and Incorrect ==========
 test("checkSpelling: Hyphenated words with both correct (blue-green) are not mistakes", () => {
   const text = "blue-green fire";
   const wordsArray = splitTextToWords(text);
@@ -132,7 +125,6 @@ test("checkSpelling: Hyphenated word with one incorrect part is flagged", () => 
   const wordsArray = splitTextToWords(text);
   const dict = getSpellCheckDictionary();
   const mistakes = checkSpelling(wordsArray, dict);
-  // feisty is not in Basic English, cat is
   assert.deepStrictEqual(mistakes, ["feisty"]);
 });
 
@@ -144,9 +136,7 @@ test("checkSpelling: Hyphenated word with both parts incorrect", () => {
   assert.deepStrictEqual(mistakes, ["badword1", "badword2"]);
 });
 
-// ========== RUBRIC TEST 7: Adding Words to Dictionary ==========
 test("addWordToNewDictionary: Added word is no longer flagged as mistake", () => {
-  // Reset the custom dictionary first
   newDictionary.clear();
   
   const wordsArray = ["dfd"];
@@ -165,18 +155,15 @@ test("addWordToNewDictionary: Multiple words can be added separately", () => {
   
   const wordsArray = ["badword1", "badword2"];
   
-  // Flag both as mistakes
   let dict = getSpellCheckDictionary();
   let mistakes = checkSpelling(wordsArray, dict);
   assert.deepStrictEqual(mistakes, ["badword1", "badword2"]);
 
-  // Add first word
   addWordToNewDictionary("badword1");
   dict = getSpellCheckDictionary();
   mistakes = checkSpelling(wordsArray, dict);
   assert.deepStrictEqual(mistakes, ["badword2"]);
 
-  // Add second word
   addWordToNewDictionary("badword2");
   dict = getSpellCheckDictionary();
   mistakes = checkSpelling(wordsArray, dict);
@@ -193,9 +180,7 @@ test("addWordToNewDictionary: Case-insensitive addition (stored as lowercase)", 
   assert.deepStrictEqual(mistakes, []);
 });
 
-// (clearMistakes removed as it was unused in the application)
 
-// ========== RUBRIC TEST 9: Comprehensive Real-World Examples ==========
 test("Comprehensive example: 'he go to the island' (correct)", () => {
   const text = "he go to the island";
   const wordsArray = splitTextToWords(text);
@@ -241,7 +226,6 @@ test("Comprehensive example: 'hello world' (incorrect)", () => {
   const wordsArray = splitTextToWords(text);
   const dict = getSpellCheckDictionary();
   const mistakes = checkSpelling(wordsArray, dict);
-  // Both "hello" and "world" are not in Basic English
   assert.deepStrictEqual(mistakes, ["hello", "world"]);
 });
 
@@ -250,6 +234,5 @@ test("Comprehensive example: 'go to birmingham' (incorrect - lowercase proper no
   const wordsArray = splitTextToWords(text);
   const dict = getSpellCheckDictionary();
   const mistakes = checkSpelling(wordsArray, dict);
-  // "birmingham" is not capitalized, so it's treated as a regular word
   assert.deepStrictEqual(mistakes, ["birmingham"]);
 });

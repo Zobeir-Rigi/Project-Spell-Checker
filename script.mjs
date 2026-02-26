@@ -15,8 +15,6 @@ function showMistakes(mistakes) {
 
     if (mistakes.length === 0) {
         resultDiv.textContent = "No mistakes found!";
-        // clear the input to allow a fresh start after all mistakes have been fixed
-        inputText.value = "";
         return;
     }
 

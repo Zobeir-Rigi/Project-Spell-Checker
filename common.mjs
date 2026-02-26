@@ -25,7 +25,7 @@ export const checkSpelling = (wordsArray, dictionary) => {
     const mistakes = []
 
     for (const word of wordsArray) {
-        if (word && word[0] === word[0].toUpperCase()){
+        if (word && word[0] === word[0].toUpperCase()) {
             continue;
         }
 
